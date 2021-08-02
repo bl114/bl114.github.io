@@ -1,5 +1,5 @@
 ---
-title: "My website"
+title: "Dashboards"
 output: 
   html_document:
     toc: true
@@ -7,6 +7,5 @@ output:
 
 ---
 
+# Here are three dashboards
 
-
-[Click here for dashboards](dashboards.html)
