@@ -9,4 +9,71 @@ output:
 
 # Here are three dashboards
 
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+```
+
+
+## Dashboard 1
+
+```{r}
+data("instacart")
+instacart %>% 
+  group_by(aisle) %>% 
+  summarize(
+    n_obs = n()
+  ) %>% 
+  filter(n_obs >= 10000) %>% 
+     mutate(aisle = fct_reorder(aisle, n_obs)) %>% 
+  plot_ly(
+    x = ~n_obs, y = ~aisle, 
+    alpha = .5, type = "scatter", mode = "markers") 
+
+```
+
+
+## Dashboard 2
+
+```{r}
+accel_df =
+read_csv("./data/accel_data.csv") %>% 
+janitor::clean_names() %>% 
+  pivot_longer(
+    activity_1:activity_1440, 
+    names_to = "minute", 
+    names_prefix = "activity_", 
+    values_to = "activity") %>% 
+  mutate(
+    type_of_day = ifelse(day == "Saturday" | day == "Sunday" , "weekend", "weekday")
+  )
+
+accel_df %>% 
+  group_by(day_id, type_of_day) %>% 
+  summarize (total_activity = sum(activity)) %>% 
+  plot_ly(
+    x = ~day_id, y = ~total_activity, color = ~type_of_day,
+    alpha = .5, type = "scatter", mode = "markers") 
+  
+```
+
+## Dashboard 3
+
+```{r}
+minute_activity =
+accel_df %>% 
+  mutate(
+    minute = as.numeric(minute)
+    ) %>% 
+  ggplot(aes(x = minute, y = activity, color = day)) +
+  geom_point() +
+   scale_x_continuous(
+    breaks = c(200, 400, 600, 800, 1000, 1200),
+    labels = c("200", "400", "600", "800", "1000", "1200")
+   )
+
+ggplotly(minute_activity)
+```
 
