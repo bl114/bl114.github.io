@@ -3,10 +3,8 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Plotly"
-      href: plotly.html
-    - text: "Dashboard"
-      href: dashboard.html
+    - text: "Dashboards"
+      href: dashboards.html
     - icon: fa-envelope fa-lg
       href: mailto:<BL114@columbia.edu>
     - icon: fa-github fa-lg
