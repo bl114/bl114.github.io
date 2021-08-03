@@ -1,31 +1,22 @@
 ---
-title: "Dashboards"
+title: "dashboards"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
-navbar:
-  right:
-    - text: "Home"
-      href: index.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<BL114@columbia.edu>
-    - icon: fa-github fa-lg
-      href: http://github.com/BL114
-
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
 
-# Here are three dashboards
-
 ```{r setup, include=FALSE}
+library(flexdashboard)
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
-library(flexdashboard)
 ```
 
+Column {data-width=650}
+-----------------------------------------------------------------------
 
-## Dashboard 1
+### Chart A
 
 ```{r}
 data("instacart")
@@ -39,11 +30,12 @@ instacart %>%
   plot_ly(
     x = ~n_obs, y = ~aisle, 
     alpha = .5, type = "scatter", mode = "markers") 
-
 ```
 
+Column {data-width=350}
+-----------------------------------------------------------------------
 
-## Dashboard 2
+### Chart B
 
 ```{r}
 accel_df =
@@ -64,10 +56,9 @@ accel_df %>%
   plot_ly(
     x = ~day_id, y = ~total_activity, color = ~type_of_day,
     alpha = .5, type = "scatter", mode = "markers") 
-  
 ```
 
-## Dashboard 3
+### Chart C
 
 ```{r}
 minute_activity =
@@ -84,4 +75,6 @@ accel_df %>%
 
 ggplotly(minute_activity)
 ```
+
+
 
